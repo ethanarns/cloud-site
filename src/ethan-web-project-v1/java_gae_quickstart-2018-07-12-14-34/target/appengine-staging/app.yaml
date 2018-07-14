@@ -37,7 +37,7 @@ handlers:
   script: unused
   login: optional
   secure: optional
-- url: /demo
+- url: /sMain
   script: unused
   login: optional
   secure: optional

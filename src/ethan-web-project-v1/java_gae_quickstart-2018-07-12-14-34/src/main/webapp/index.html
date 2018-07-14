@@ -1,18 +1,24 @@
 <!doctype html>
 <html>
   <head>
-    <title>App Engine Demo</title>
+    <title>App Engine Main Page</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
   <body>
     <div id="result">Loading...</div>
+    <div id="pleaseClick"><a href="#" id="pleaseClickA">Dynamically change page HTML</a></div>
 
     <script>
-		/*eslint-env jquery */
+		/*eslint-env jquery */ // Stops dumb warning with $
 		$(document).ready(function() {
-		  $.getJSON('/demo', function(data) {
-		    $('#result').html("Hello, " + data.name);
+		  $.getJSON('/sMain', function(data) {
+		      $('#result').html("Your browser: " + data.browser);
 		  });
+		  
+		  $("#pleaseClick").click(function() {
+		    $(document.body).empty();
+            $(document.body).load("contact.html");
+          });
 		});
     </script>
   </body>
