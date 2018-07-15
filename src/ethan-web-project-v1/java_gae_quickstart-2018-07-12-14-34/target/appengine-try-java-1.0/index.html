@@ -7,9 +7,11 @@
   <body>
     <div id="result">Loading...</div>
     <div id="pleaseClick"><a href="#" id="pleaseClickA">Dynamically change page HTML</a></div>
+    <p>Static content? Yes please!</p>
+    <img src="./images/dog-computer.jpg" alt="Doggo at computto"></img>
 
     <script>
-		/*eslint-env jquery */ // Stops dumb warning with $
+		/*eslint-env jquery */ // Stops stupid warning with $
 		$(document).ready(function() {
 		  $.getJSON('/sMain', function(data) {
 		      $('#result').html("Your browser: " + data.browser);
@@ -17,7 +19,7 @@
 		  
 		  $("#pleaseClick").click(function() {
 		    $(document.body).empty();
-            $(document.body).load("contact.html");
+            //$(document.body).load("contact.html");
           });
 		});
     </script>

@@ -36,6 +36,13 @@
     <appengine.app.version>1</appengine.app.version>
     <appengine.target.version>1.9.64</appengine.target.version>
     <appengine-maven-plugin-version>1.3.2</appengine-maven-plugin-version>
+
+    <!-- MySQL Connection -->
+    <INSTANCE_CONNECTION_NAME>ethan-web-project-v1:us-west1:cornerstone-sql</INSTANCE_CONNECTION_NAME>
+    <user>root</user>
+    <password>Sorry github, you aint seeing this</password>
+    <!--<password>Just3More!</password>-->
+    <database>test</database>
   </properties>
 
   <dependencies>
@@ -61,6 +68,16 @@
         <groupId>org.json</groupId>
         <artifactId>json</artifactId>
         <version>20180130</version>
+    </dependency>
+    <dependency> <!-- Only used locally -->
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.42</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud.sql</groupId>
+      <artifactId>mysql-socket-factory</artifactId>
+      <version>1.0.8</version>
     </dependency>
 
     <!-- Test Dependencies -->
@@ -89,10 +106,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-    
+
   <build>
-    <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory> 
-                   
+    <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -110,11 +127,17 @@
           </webResources>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${appengine-maven-plugin-version}</version>
+        <configuration>
+          <deploy.promote>true</deploy.promote>
+          <deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
+        </configuration>
       </plugin>
+
     </plugins>
   </build>
 </project>

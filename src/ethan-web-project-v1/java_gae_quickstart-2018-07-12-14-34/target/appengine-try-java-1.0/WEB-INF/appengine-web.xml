@@ -2,4 +2,9 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
     <threadsafe>true</threadsafe>
     <runtime>java8</runtime>
+
+    <system-properties>
+        <!-- Data for below is in pom.xml -->
+        <property name="cloudsql" value="jdbc:mysql://google/test?useSSL=false&amp;cloudSqlInstance=ethan-web-project-v1:us-west1:cornerstone-sql&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=root&amp;password=fmu69YXcgxYtdAbU" />
+    </system-properties>
 </appengine-web-app>

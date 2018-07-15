@@ -19,13 +19,32 @@ package myapp;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import org.json.*;
+import java.util.ArrayList;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MainServlet extends HttpServlet {
+// From Maven (pom.xml) dependencies
+import org.json.*;
+import java.sql.*;
+import com.google.apphosting.api.ApiProxy;
 
+// https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html
+public class MainServlet extends HttpServlet {
+    
+    // Keep false until deploying
+    public final boolean SQL_ENABLED = false;
+    
+    // SQL Connection, created when server first accessed
+    Connection conn;
+    
+    //String header_user = "null";
+    
+    // Fires every time a user visits a page, most of the time via hyperlink or refresh
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
@@ -56,5 +75,23 @@ public class MainServlet extends HttpServlet {
         // Send JSON response
         resp.setContentType("text/plain");
         resp.getWriter().println(new JSONObject(dict));
+    }
+    
+    // Called at very start of server, 'conn' will last until server closes
+    @Override
+    public void init() throws ServletException {
+        // NOTE: SQL ONLY WORKS ON DEPLOYED SERVERS
+        if(SQL_ENABLED) {
+            try {
+                conn = DriverManager.getConnection(System.getProperty("cloudsql"));
+                //header_user = "SQL works!";
+            } catch (SQLException e) {
+                log("ERROR at init(): 'Unable to connect to Cloud SQL'");
+                //header_user = "SQL epic fails!";
+                // Disable below command until deploying final production server
+                //throw new ServletException("Unable to connect to Cloud SQL", e);
+            }
+        }
+
     }
 }
